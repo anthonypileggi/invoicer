@@ -1,0 +1,30 @@
+---
+output:
+  html_document:
+    theme: null
+    highlight: null
+    css: invoice.css
+params:
+  data: "file.rds"
+  date_created: !r Sys.Date()
+  date_due: !r Sys.Date() + 14
+---
+
+```{r setup, include = FALSE, echo = FALSE}
+library(invoicer)
+
+# Load data
+x <- readRDS(params$data)
+```
+
+```{r, results = "asis", include = TRUE, echo = FALSE}
+invoicer_html(
+  id = x$next_invoice_id,
+  date_created = params$date_created,
+  date_due = params$date_due,
+  logo = x$company$logo,
+  contractor = htmltools::HTML("Anthony Pileggi<br/>4660 Yeardley Loop<br/>Williamsburg, VA 23185"),
+  client = htmltools::HTML(x$clients$html),
+  worklog = x$worklog
+)
+```
