@@ -33,6 +33,31 @@ googlesheets::gs_auth(token = "googlesheets_token.rds")
 # TODO: add to .Renviron file, fix gs_auth() (make sure to setup absolute path)
 ```
 
+## Getting Started
+
+Getting started is easy!  Just run the `invoicer_setup()` function to generate googlesheets templates that you can start editting.
+
+```r
+library(invoicer)
+invoicer_setup()
+```
+
+## Emails
+
+Right now this only works if you have a Gmail address.  Steps to get started are:
+
+```r
+# Add this line to your .Renviron file
+INVOICER_EMAIL_PASSWORD = "my_gmail_password"
+
+# Create credentials file
+invoicer_setup()
+
+# Start sending emails
+library(invoicer)
+invoicer_email(id = 1)   # email out invoice #1 to the client
+```
+
 
 ## Docker Setup
 
