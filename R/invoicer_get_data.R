@@ -35,7 +35,7 @@ invoicer_get_data <- function(key = Sys.getenv("INVOICER_GS_KEY")) {
 #' @param gs registered googlesheet
 #' @note requires authentication via googlesheets
 #' @export
-invoicer_get_company <- function(key = "1auWdQK9f0db09rVItdgAqMEUHrgYt8x-vt4coQi0g3w", gs = NULL) {
+invoicer_get_company <- function(key = Sys.getenv("INVOICER_GS_KEY"), gs = NULL) {
 
   # TODO: fix authentication pipeline
   if (is.null(gs)) {
@@ -56,7 +56,7 @@ invoicer_get_company <- function(key = "1auWdQK9f0db09rVItdgAqMEUHrgYt8x-vt4coQi
 #' @param gs registered googlesheet
 #' @note requires authentication via googlesheets
 #' @export
-invoicer_get_clients <- function(key = "1auWdQK9f0db09rVItdgAqMEUHrgYt8x-vt4coQi0g3w", gs = NULL) {
+invoicer_get_clients <- function(key = Sys.getenv("INVOICER_GS_KEY"), gs = NULL) {
 
   # TODO: fix authentication pipeline
   if (is.null(gs)) {
@@ -77,7 +77,7 @@ invoicer_get_clients <- function(key = "1auWdQK9f0db09rVItdgAqMEUHrgYt8x-vt4coQi
 #' @param gs registered googlesheet
 #' @note requires authentication via googlesheets
 #' @export
-invoicer_get_worklog <- function(key = "1auWdQK9f0db09rVItdgAqMEUHrgYt8x-vt4coQi0g3w", gs = NULL) {
+invoicer_get_worklog <- function(key = Sys.getenv("INVOICER_GS_KEY"), gs = NULL) {
 
   # TODO: fix authentication pipeline
   if (is.null(gs)) {
@@ -95,7 +95,7 @@ invoicer_get_worklog <- function(key = "1auWdQK9f0db09rVItdgAqMEUHrgYt8x-vt4coQi
 #' @param gs registered googlesheet
 #' @note requires authentication via googlesheets
 #' @export
-invoicer_get_invoices <- function(key = "1auWdQK9f0db09rVItdgAqMEUHrgYt8x-vt4coQi0g3w", gs = NULL) {
+invoicer_get_invoices <- function(key = Sys.getenv("INVOICER_GS_KEY"), gs = NULL) {
 
   # TODO: fix authentication pipeline
   if (is.null(gs)) {
