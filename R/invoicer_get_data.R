@@ -16,28 +16,6 @@ invoicer_get_data <- function(key = Sys.getenv("INVOICER_GS_KEY")) {
   # prepare worklog data
   worklog <- invoicer_get_worklog(gs = gs)
   worklog <- dplyr::left_join(worklog, dplyr::select(clients, client, rate), by = "client")
-  worklog <- dplyr::mutate(
-    worklog,
-    html =
-      purrr::pmap(
-        list(project, links, hours, rate),
-        function(p, l, h, r) {
-          tags$tr(
-            class = "item",
-            tags$td(
-              invoicer_format_project_title(p),
-              switch(
-                is.na(l) + 1,
-                tags$span("(", invoicer_format_links(l), ")"),
-                ""
-              )
-            ),
-            tags$td(format(h, nsmall = 1)),
-            tags$td(paste0("$", h * r))
-          )
-        }
-      )
-  )
 
   # invoice data
   invoices <- invoicer_get_invoices(gs = gs)
