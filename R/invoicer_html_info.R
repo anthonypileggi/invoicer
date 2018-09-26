@@ -1,9 +1,8 @@
 #' Create invoice contractor/client info
-#' @param contractor name/address of contractor
-#' @param client name/address of client
+#' @param x invoicer object
 #' @return html
 #' @export
-invoicer_html_info <- function(contractor = "Anthony Pileggi", client = "iFixit") {
+invoicer_html_info <- function(x) {
   tags$tr(
     class = "information",
     tags$td(
@@ -11,10 +10,30 @@ invoicer_html_info <- function(contractor = "Anthony Pileggi", client = "iFixit"
       tags$table(
         tags$tr(
           tags$td(
-            contractor
+            tags$span(
+              x$company$name,
+              htmltools::tags$br(),
+              x$company$address,
+              htmltools::tags$br(),
+              x$company$city,
+              ", ",
+              x$company$state,
+              " ",
+              x$company$zip_code
+              )
           ),
           tags$td(
-            client
+            tags$span(
+              x$clients$client,
+              htmltools::tags$br(),
+              x$clients$address,
+              htmltools::tags$br(),
+              x$clients$city,
+              ", ",
+              x$clients$state,
+              " ",
+              x$clients$zip_code
+            )
           )
         )
       )

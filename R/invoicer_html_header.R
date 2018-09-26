@@ -1,14 +1,8 @@
 #' Create invoice header
-#' @param id invoice number/id
-#' @param date_created date of invoice creation
-#' @param date_due date the invoice should be paid by
-#' @param logo contractor logo
+#' @param x invoicer object
 #' @return html
 #' @export
-invoicer_html_header <- function(id = 1,
-                                 date_created = Sys.Date(),
-                                 date_due = Sys.Date() + 14,
-                                 logo = system.file("logo.png", package = "invoicer")) {
+invoicer_html_header <- function(x) {
   tags$tr(
     class = "top",
     tags$td(
@@ -17,14 +11,16 @@ invoicer_html_header <- function(id = 1,
         tags$tr(
           tags$td(
             class = "title",
-            tags$img(src = logo, style = "width:100%; max-width:300px; max-height:200px")
+            tags$img(src = x$company$logo, style = "width:100%; max-width:300px; max-height:200px")
           ),
           tags$td(
-            paste("Invoice #:", id),
+            paste("Invoice #:", x$next_invoice_id),
             tags$br(),
-            paste("Created:", format(date_created, "%B %d, %Y")),
+            paste("Period:", format(x$params$start_date, "%m/%d/%Y"), "-", format(x$params$end_date, "%m/%d/%Y")),
             tags$br(),
-            paste("Due:", format(date_due, "%B %d, %Y"))
+            paste("Created:", format(x$params$date_created, "%B %d, %Y")),
+            tags$br(),
+            paste("Due:", format(x$params$date_due, "%B %d, %Y"))
           )
         )
       )

@@ -1,12 +1,12 @@
 #' Create invoice details (project, hours, price)
-#' @param worklog worklog data.frame/tibble
+#' @param x invoicer object
 #' @return html
 #' @export
-invoicer_html_details <- function(worklog = NULL, include_dates = FALSE) {
+invoicer_html_details <- function(x, include_dates = FALSE) {
 
   # generate line-item html
-  worklog <- dplyr::mutate(
-    worklog,
+  x$worklog <- dplyr::mutate(
+    x$worklog,
     html =
       purrr::pmap(
         list(date, project, links, hours, rate),
@@ -41,12 +41,12 @@ invoicer_html_details <- function(worklog = NULL, include_dates = FALSE) {
       htmltools::tags$td("Hours"),
       htmltools::tags$td("Price")
     ),
-    htmltools::tagList(worklog$html),
+    htmltools::tagList(x$worklog$html),
     htmltools::tags$tr(
       class = "total",
       htmltools::tags$td(" "),
       htmltools::tags$td("Total:"),
-      htmltools::tags$td(paste0("$", sum(worklog$hours * worklog$rate)))
+      htmltools::tags$td(paste0("$", sum(x$worklog$hours * x$worklog$rate)))
     )
   )
 }
