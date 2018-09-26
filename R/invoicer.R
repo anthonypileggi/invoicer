@@ -33,6 +33,8 @@ invoicer <- function(client,
   # store invoice_{#}.pdf on googledrive
   googledrive::drive_auth()
   gd <- googledrive::drive_upload(pdf_file)
+
+  # file cleanup
   #unlink(html_file)
   #unlink(pdf_file)
 
@@ -51,5 +53,5 @@ invoicer <- function(client,
   msg <- dplyr::mutate(invoice_summary, msg = paste0("Generated an invoice for ", client, " for $", total, "."))$msg
   message(msg)
 
-  return(invoice_summary)
+  dplyr::mutate_at(invoice_summary, c("start_date", "end_date"), as.Date, format = c("%m/%d/%Y"))
 }
