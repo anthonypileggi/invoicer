@@ -1,19 +1,26 @@
 #' Send an invoice via email
+#' @param x invoice object
 #' @param id invoice id
-invoicer_email <- function(id = 2) {
+#' @export
+invoicer_email <- function(x, id) {
 
-  # identify file using invoice id
-  invoices <- invoicer_get_invoices()
-  invoice <- invoices[invoices$id == id, ]
+  # get details for the invoice we are sending
+  if (is.null(x)) {
+    if (is.null(id))
+      return("You must provide either an invoice object (x) or an invoice id (id).")
+    # identify file using invoice id
+    invoices <- invoicer_get_invoices()
+    x <- invoices[invoices$id == id, ]
+  }
 
   # check if email can/should be sent
-  if (nrow(invoice) == 0)
+  if (nrow(x) == 0)
     return(message("No matching invoice found.  No email sent."))
-  if (nrow(invoice) > 1)
+  if (nrow(x) > 1)
     return(message("More than 1 matching invoice found.  No email sent."))
 
   # compose/send email
-  invoicer_email_send(invoice)
+  invoicer_email_send(x)
 }
 
 
@@ -51,21 +58,23 @@ invoicer_email_send <- function(x, preview = FALSE) {
     )
 
   # compose email
+  # TODO: include image inline: blastula::add_image(pdf_file)
   email <-
     blastula::compose_email(
       body = "
-    ## Invoice Number {id}
+    Dear {client},
 
-    Here is your invoice for {start_date} to {end_date}:
+    Your invoice for the billing period {format(start_date, '%m/%d/%Y')} - {format(end_date, '%m/%d/%Y')} is attached.
 
-    {blastula::add_image(pdf_file)}
+    Thanks!
 
     {sender}",
       footer = "Sent on {blastula::add_readable_time()}",
       id = x$id,
       start_date = x$start_date,
       end_date = x$end_date,
-      sender = me$name
+      sender = me$name,
+      client = x$client
     )
 
   # preview email
@@ -79,8 +88,9 @@ invoicer_email_send <- function(x, preview = FALSE) {
     #to = client$email,
     to = me$email,
     cc = me$email,
-    subject = paste0("Invoice #", x$id, " (", x$start_date, " - ", x$end_date, ")"),
+    subject = paste0("Invoice from ",me$name, " (", format(x$start_date, "%m/%d/%Y"), " - ", format(x$end_date, "%m/%d/%Y"), ")"),
     attachments = pdf_file,
     creds_file = "~/.e_creds"
   )
+  unlink(pdf_file)
 }
