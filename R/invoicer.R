@@ -26,10 +26,15 @@ invoicer <- function(client,
   html_file <- invoicer_create(rds_file)
   unlink(rds_file)
 
-  # store invoice_{#}.html on googledrive
+  # generate a 'pdf' (via screenshot)
+  pdf_file <- stringr::str_replace(html_file, ".html", ".pdf")
+  webshot::webshot(html_file, pdf_file)
+
+  # store invoice_{#}.pdf on googledrive
   googledrive::drive_auth()
-  gd <- googledrive::drive_upload(html_file)
+  gd <- googledrive::drive_upload(pdf_file)
   #unlink(html_file)
+  #unlink(pdf_file)
 
   # generate invoice summary
   invoice_summary <-
