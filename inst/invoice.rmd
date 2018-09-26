@@ -25,6 +25,7 @@ invoicer_html(
   logo = x$company$logo,
   contractor = htmltools::HTML("Anthony Pileggi<br/>4660 Yeardley Loop<br/>Williamsburg, VA 23185"),
   client = htmltools::HTML(x$clients$html),
-  worklog = x$worklog
+  worklog = x$worklog,
+  include_dates = FALSE
 )
 ```

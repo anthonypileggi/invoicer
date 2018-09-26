@@ -9,7 +9,8 @@ invoicer_html <- function(id = 1,
                           logo = system.file("logo.png", package = "invoicer"),
                           contractor = "Anthony Pileggi",
                           client = "Client A",
-                          worklog = NULL) {
+                          worklog = NULL,
+                          include_dates = FALSE) {
   htmltools::tags$div(
     class = "invoice-box",
     htmltools::tags$table(
@@ -17,7 +18,7 @@ invoicer_html <- function(id = 1,
       cellspacing = "0",
       invoicer_html_header(id, date_created, date_due, logo),
       invoicer_html_info(contractor, client),
-      invoicer_html_details(worklog)
+      invoicer_html_details(worklog, include_dates)
     )
   )
 }
