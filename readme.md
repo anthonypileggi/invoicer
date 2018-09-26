@@ -58,6 +58,14 @@ library(invoicer)
 invoicer_email(id = 1)   # email out invoice #1 to the client
 ```
 
+## Billing
+
+Once you have everything setup, you can easily send any/all outstanding invoices to a client:
+
+```r
+# Bill client on a bi-weekly schedule
+invoicer_bill_client("your_client", billing_period = 14)
+```
 
 ## Docker Setup
 
