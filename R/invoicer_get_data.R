@@ -44,11 +44,7 @@ invoicer_get_company <- function(key = Sys.getenv("INVOICER_GS_KEY"), gs = NULL)
   }
 
   # prepare company data
-  x <- googlesheets::gs_read(gs, ws = "company", verbose = FALSE, col_types = readr::cols())
-  dplyr::mutate(
-    x,
-    html = paste0(client, htmltools::tags$br(), address, htmltools::tags$br(), city, ", ", state, " ", zip_code)
-  )
+  googlesheets::gs_read(gs, ws = "company", verbose = FALSE, col_types = readr::cols())
 }
 
 #' Load client data from googlesheets
@@ -65,11 +61,7 @@ invoicer_get_clients <- function(key = Sys.getenv("INVOICER_GS_KEY"), gs = NULL)
   }
 
   # prepare client data
-  clients <- googlesheets::gs_read(gs, ws = "clients", verbose = FALSE, col_types = readr::cols())
-  dplyr::mutate(
-    clients,
-    html = paste0(client, htmltools::tags$br(), address, htmltools::tags$br(), city, ", ", state, " ", zip_code)
-  )
+  googlesheets::gs_read(gs, ws = "clients", verbose = FALSE, col_types = readr::cols())
 }
 
 #' Load worklog data from googlesheets
