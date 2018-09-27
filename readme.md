@@ -44,12 +44,29 @@ googlesheets::gs_auth(token = "googlesheets_token.rds")
 
 ## Getting Started
 
-Getting started is easy!  Just run the `invoicer_setup()` function to generate googlesheets templates that you can start editting.
+Getting started is easy!
 
 ```r
 library(invoicer)
-invoicer_setup()
+
+# Create googlesheets templates
+invoicer_setup("My Company")
+#invoicer_setup("My Company", "me@email.com")
+
+# Send a sample invoice (to confirm everything is working!)
+x <- invoicer(client = "Client A", start_date = Sys.Date(), end_date = Sys.Date())
+
+# Email a test invoice to yourself
+invoicer_email(x)
 ```
+
+If you received the email with an attached invoice, then that's a good sign!
+
+Now, you can edit each worksheet:
+  - **company**: information about your company
+  - **clients**: information about your clients
+  - **worklog**: information about your projects
+
 
 ## Emails
 
