@@ -12,13 +12,22 @@ devtools::install_github("anthonypilegg/invoicer")
 
 ## Setup (local)
 
+To use all the features, you'll need to setup each of the following:
+  - googlesheets
+  - github
+  - email (gmail)
+  
 Add these lines to your `.Renviron`:
 ```
 # Put your googlesheets key here (if using automated setup this is done for you
-INVOICER_GS_KEY = "asdfsad"
+INVOICER_GS_KEY = "your_googlesheets_key"
 
 # github PAT
-INVOICER_GH_PAT = "asdfsd"
+INVOICER_GH_PAT = "your_github_pat"
+
+# email password
+INVOICER_EMAIL_PASSWORD = "your_email_password"
+
 ```
 
 Add these links to your `.Rprofile`:
