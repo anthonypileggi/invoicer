@@ -4,6 +4,7 @@
 #' @param aggregate aggregate projects over multiple days
 #' @return html
 #' @export
+#' @importFrom magrittr "%>%"
 invoicer_html_details <- function(x, include_dates = FALSE, aggregate = FALSE) {
 
   # aggregate worklog by project
