@@ -3,11 +3,15 @@
 #' @param client client name (character/scalar)
 #' @param start_date first day of work (Date/scalar)
 #' @param end_date last day of work (Date/scalar)
+#' @param due_date date the invoice is due (Date/scalar)
+#' @param include_dates include a Date column in the invoice (logical/scalar)
+#' @param aggregate aggregate projects across dates (logical/scalar)
 #' @param key googlesheets key
 #' @export
 invoicer <- function(client,
                      start_date,
                      end_date,
+                     due_date = Sys.Date() + 14,
                      include_dates = TRUE,
                      aggregate = TRUE,
                      key = Sys.getenv("INVOICER_GS_KEY")) {
@@ -25,7 +29,7 @@ invoicer <- function(client,
   saveRDS(xs, rds_file)
 
   # generate a new invoice (in current working directory)
-  html_file <- invoicer_create(rds_file, include_dates = include_dates, aggregate = aggregate)
+  html_file <- invoicer_create(rds_file, due_date, include_dates, aggregate)
   unlink(rds_file)
 
   # generate a 'pdf' (via screenshot)
