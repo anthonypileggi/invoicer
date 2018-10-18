@@ -23,7 +23,7 @@ invoicer_html_header <- function(x, include_dates = TRUE) {
             tags$br(),
             paste("Created:", format(x$params$date_created, "%B %d, %Y")),
             tags$br(),
-            paste("Due:", format(x$params$date_due, "%B %d, %Y"))
+            switch(!is.null(x$params$date_due) + 1, "", paste("Due:", format(x$params$date_due, "%B %d, %Y")))
           )
         )
       )
