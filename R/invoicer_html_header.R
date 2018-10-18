@@ -1,18 +1,21 @@
 #' Create invoice header
 #' @param x invoicer object
+#' @param include_dates include a 'Date' column in invoice?
 #' @return html
 #' @export
-invoicer_html_header <- function(x) {
+invoicer_html_header <- function(x, include_dates = TRUE) {
   tags$tr(
     class = "top",
     tags$td(
-      colspan = "2",
+      colspan = ifelse(include_dates, "4", "3"),
       tags$table(
         tags$tr(
           tags$td(
             class = "title",
             tags$img(src = x$company$logo, style = "width:100%; max-width:300px; max-height:200px")
           ),
+          tags$td(" "),
+          switch(include_dates + 1, tags$td(" "), ""),
           tags$td(
             paste("Invoice #:", x$next_invoice_id),
             tags$br(),

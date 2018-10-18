@@ -8,6 +8,8 @@ params:
   data: "file.rds"
   date_created: !r Sys.Date()
   date_due: !r Sys.Date() + 14
+  include_dates: TRUE
+  aggregate: FALSE
 ---
 
 ```{r setup, include = FALSE, echo = FALSE}
@@ -22,5 +24,5 @@ x$params$date_due <- params$date_due
 ```
 
 ```{r, results = "asis", include = TRUE, echo = FALSE}
-invoicer_html(x, include_dates = FALSE)
+invoicer_html(x, include_dates = params$include_dates, aggregate = params$aggregate)
 ```

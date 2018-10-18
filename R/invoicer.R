@@ -8,6 +8,8 @@
 invoicer <- function(client,
                      start_date,
                      end_date,
+                     include_dates = TRUE,
+                     aggregate = TRUE,
                      key = Sys.getenv("INVOICER_GS_KEY")) {
 
   # load/prepare data based on params
@@ -23,7 +25,7 @@ invoicer <- function(client,
   saveRDS(xs, rds_file)
 
   # generate a new invoice (in current working directory)
-  html_file <- invoicer_create(rds_file)
+  html_file <- invoicer_create(rds_file, include_dates = include_dates, aggregate = aggregate)
   unlink(rds_file)
 
   # generate a 'pdf' (via screenshot)

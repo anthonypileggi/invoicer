@@ -1,12 +1,13 @@
 #' Create invoice contractor/client info
 #' @param x invoicer object
+#' @param include_dates include a 'Date' column in invoice?
 #' @return html
 #' @export
-invoicer_html_info <- function(x) {
+invoicer_html_info <- function(x, include_dates = TRUE) {
   tags$tr(
     class = "information",
     tags$td(
-      colspan = "2",
+      colspan = ifelse(include_dates, "4", "3"),
       tags$table(
         tags$tr(
           tags$td(
@@ -22,6 +23,8 @@ invoicer_html_info <- function(x) {
               x$company$zip_code
               )
           ),
+          tags$td(" "),
+          switch(include_dates + 1, tags$td(" "), ""),
           tags$td(
             tags$span(
               x$clients$client,
