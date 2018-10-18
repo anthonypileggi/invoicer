@@ -85,9 +85,9 @@ invoicer_email_send <- function(x, preview = FALSE) {
   blastula::send_email_out(
     email,
     from = me$email,
-    to = client$email,
+    to = stringr::str_trim(stringr::str_split(clients$email, ",")[[1]]),    # parse the comma-separated list of client email addresses
     cc = me$email,
-    subject = paste0("Invoice from ",me$name, " (", format(x$start_date, "%m/%d/%Y"), " - ", format(x$end_date, "%m/%d/%Y"), ")"),
+    subject = paste0("Invoice from ", me$name, " (", format(x$start_date, "%m/%d/%Y"), " - ", format(x$end_date, "%m/%d/%Y"), ")"),
     attachments = pdf_file,
     creds_file = "~/.e_creds"
   )
