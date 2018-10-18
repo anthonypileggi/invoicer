@@ -54,7 +54,7 @@ invoicer_html_details <- function(x, include_dates = FALSE, aggregate = FALSE) {
               )
             ),
             tags$td(format(h, nsmall = 1)),
-            tags$td(paste0("$", h * r))
+            tags$td(scales::dolar(h * r))
           )
         }
       )
@@ -74,7 +74,7 @@ invoicer_html_details <- function(x, include_dates = FALSE, aggregate = FALSE) {
       switch(include_dates + 1, "", htmltools::tags$td(" ")),
       htmltools::tags$td(" "),
       htmltools::tags$td("Total:"),
-      htmltools::tags$td(paste0("$", sum(x$worklog$hours * x$worklog$rate)))
+      htmltools::tags$td(scales::dollar(sum(x$worklog$hours * x$worklog$rate)))
     )
   )
 }
