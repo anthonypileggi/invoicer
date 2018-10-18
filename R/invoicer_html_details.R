@@ -54,7 +54,7 @@ invoicer_html_details <- function(x, include_dates = FALSE, aggregate = FALSE) {
               )
             ),
             tags$td(format(h, nsmall = 1)),
-            tags$td(scales::dolar(h * r))
+            tags$td(scales::dollar(h * r))
           )
         }
       )
