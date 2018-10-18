@@ -12,7 +12,7 @@ invoicer_check_data <- function(x) {
   # check: does it already exists?
   tmp <-
     dplyr::filter(
-      xs$invoices,
+      x$invoices,
       client == x$params$client,
       start_date == x$params$start_date,
       end_date == x$params$end_date
