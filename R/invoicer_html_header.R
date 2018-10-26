@@ -12,7 +12,10 @@ invoicer_html_header <- function(x, include_dates = TRUE) {
         tags$tr(
           tags$td(
             class = "title",
-            tags$img(src = x$company$logo, style = "width:100%; max-width:300px; max-height:200px")
+            tags$img(
+              src = system.file("logo.png", package = "invoicer")
+              #style = "width:100%; max-width:300px;"
+              )
           ),
           tags$td(" "),
           switch(include_dates + 1, tags$td(" "), ""),
