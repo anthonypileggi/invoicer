@@ -18,9 +18,9 @@ invoicer_html_details <- function(x, include_dates = FALSE, aggregate = FALSE) {
           min_date == max_date ~ format(min_date, "%m/%d"),
           min_date != max_date ~ paste0(format(min_date, "%m/%d"), "-", format(max_date, "%m/%d"))
         ),
-        details = paste(unique(stringr::str_split(details, ",")[[1]]), collapse = ","),
+        details = paste(unique(unlist(stringr::str_split(details, ","))), collapse = ","),
         details = ifelse(details == "NA", NA_character_, details),
-        links = paste(unique(stringr::str_split(links, ",")[[1]]), collapse = ","),
+        links = paste(unique(unlist(stringr::str_split(links, ","))), collapse = ","),
         links = ifelse(links == "NA", NA_character_, links),
         rate = weighted.mean(rate, hours),
         hours = sum(hours)
